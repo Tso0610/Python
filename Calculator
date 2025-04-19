@@ -1,47 +1,43 @@
-def add(n1, n2):
-    return n1 + n2
+def add(num1, num2):
+    return num1 + num2
 
+def subtract(num1, num2):
+    return num1 - num2
 
-def substract(n1, n2):
-    return n1 - n2
+def multiply(num1, num2):
+    return num1 * num2
 
-
-def multiply(n1, n2):
-    return n1 * n2
-
-
-def divide(n1, n2):
-    return n1 / n2
-
+def divide(num1, num2):
+    return num1 / num2
 
 operations = {
     '+': add,
-    '-': substract,
+    '-': subtract,
     '*': multiply,
     '/': divide
 }
 
+def perform_calculation(first_number):
+    """Performs a calculation based on user input."""
+    print('+\n-\n*\n/')
+    operation = input("Pick an operation: ")
+    next_number = float(input("What's the next number?: "))
+    calculation_function = operations[operation]
+    result = calculation_function(first_number, next_number)
+    print(f'{first_number} {operation} {next_number} = {result}')
+    return result
 
-number1 = float(input("What's the first number?: "))
-print('+\n-\n*\n/')
-operation = input("Pick an operation: ")
-number2 = float(input("What's the next number?: "))
-answer = operations[operation](number1, number2)
-print(f'{number1} {operation} {number2} = {answer}')
+num1 = float(input("What's the first number?: "))
+answer = perform_calculation(num1)
+
 while True:
     choice = input(
-        f"Type 'y' to continue calculating with {answer}, or type 'n' to start a new calculation: ")
+        f"Type 'y' to continue calculating with {answer}, or type 'n' to start a new calculation: "
+    ).lower()
     if choice == 'y':
-        print('+\n-\n*\n/')
-        operation = input("Pick an operation: ")
-        number2 = float(input("What's the next number?: "))
-        answer = operations[operation](answer, number2)
-        print(f'{answer} {operation} {number2} = {answer}')
-    if choice == 'n':
-        answer = 0
-        number1 = float(input("What's the first number?: "))
-        print('+\n-\n*\n/')
-        operation = input("Pick an operation: ")
-        number2 = float(input("What's the next number?: "))
-        answer = operations[operation](number1, number2)
-        print(f'{number1} {operation} {number2} = {answer}')
+        answer = perform_calculation(answer)
+    elif choice == 'n':
+        num1 = float(input("What's the first number?: "))
+        answer = perform_calculation(num1)
+    else:
+        print("Invalid input. Please type 'y' or 'n'.")
